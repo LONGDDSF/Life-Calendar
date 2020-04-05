@@ -23,7 +23,7 @@ struct ContentView: View {
                             .padding()
                     })
                 }
-                .frame(width: totalWidthOfWindow, height: nil, alignment: .trailing)
+                .frame(width: DesignConstants.gridFrameWidth, height: nil, alignment: .trailing)
                 
                 Grid(columns: 52, numItems: yourLife.weeks.count, alignment: .center) { index, colWidth in
                     GridCell(width: colWidth)

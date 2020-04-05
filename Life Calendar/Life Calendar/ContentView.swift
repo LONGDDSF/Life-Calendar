@@ -18,26 +18,41 @@ struct ContentView: View {
         Event(id: UUID(), start: Date(), end: Date(), color: .red, title: "Death")
     ]
     
-    private let widthOfSidebar = CGFloat(185)
     private let totalWidthOfWindow = CGFloat(658)
     private let totalHeightOfWindow = CGFloat(658)
     
+    @State private var showAddEventPopover: Bool = false
+
     var body: some View {
         HStack {
             VStack {
-                Text("Your Life")
+                VStack(alignment: .trailing, spacing: 0) {
+                    Button(action: {
+                        self.showAddEventPopover = true
+                    }, label: {
+                        Image("AddIcon")
+                    })
+                    .alignmentGuide(.trailing) { dimension in
+                        dimension[.trailing] + 10
+                    }
+                    .popover(isPresented: self.$showAddEventPopover, arrowEdge: .bottom, content: {
+                        Text("Add event")
+                            .padding()
+                    })
+                }
+                .frame(width: totalWidthOfWindow, height: nil, alignment: .trailing)
                 
+                Text("Your Life")
+
                 Grid(columns: 52, numItems: weeks.count, alignment: .center) { index, colWidth in
                     GridCell(width: colWidth)
                 }
                 .frame(width: 330, height: 568, alignment: .center)
 
             }
-            .frame(width: totalWidthOfWindow - widthOfSidebar, height: totalHeightOfWindow, alignment: .center)
-            
+            .frame(width: totalWidthOfWindow, height: totalHeightOfWindow, alignment: .center)
         }
         .background(Color(red: 246/255, green: 244/255, blue: 241/255))
-
     }
 }
 
